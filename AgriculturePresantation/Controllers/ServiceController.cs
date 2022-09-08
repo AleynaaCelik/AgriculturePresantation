@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace AgriculturePresantation.Controllers
 {
-    public class TestController : Controller
+    public class ServiceController : Controller
     {
         private readonly IServiceService _serviceService;
 
-        public TestController(IServiceService serviceService)
+        public ServiceController(IServiceService serviceService)
         {
             _serviceService = serviceService;
         }
@@ -44,5 +44,13 @@ namespace AgriculturePresantation.Controllers
             return View(model);
             
         }
+        public IActionResult DeleteService(int id)
+        {
+
+            var values = _serviceService.GetById(id);
+            _serviceService.Delete(values);
+            return RedirectToAction("Index");
+        }
+
     }
 }
