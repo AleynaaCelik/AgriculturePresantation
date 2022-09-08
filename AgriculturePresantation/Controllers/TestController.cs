@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Abstract;
+﻿using AgriculturePresantation.Models;
+using BusinessLayer.Abstract;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -25,13 +26,23 @@ namespace AgriculturePresantation.Controllers
         [HttpGet]
         public IActionResult AddService()
         {
-            return View();
+            return View(new ServiceAddViewModel() );
         }
         [HttpPost]
-        public IActionResult AddService(Service service)
+        public IActionResult AddService(ServiceAddViewModel model)
         {
-             _serviceService.Insert(service);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _serviceService.Insert(new Service()
+                {
+                    Title = model.Title,
+                    Image = model.Image,
+                    Description = model.Description
+                });
+                return RedirectToAction("Index");
+            }
+            return View(model);
+            
         }
     }
 }
