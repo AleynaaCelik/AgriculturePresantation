@@ -57,6 +57,11 @@ namespace AgriculturePresantation.Controllers
             var values = _serviceService.GetById(id);
             return View(values);
         }
-        
+        [HttpPost]
+        public IActionResult EditService(Service service)
+        {
+            _serviceService.Update(service);
+            return RedirectToAction("Index");
+        }
     }
 }
