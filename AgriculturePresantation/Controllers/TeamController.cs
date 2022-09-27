@@ -49,5 +49,38 @@ namespace AgriculturePresantation.Controllers
             }
             return View();
         }
+        public IActionResult DeleteTeam(int id)
+        {
+            var value = _teamService.GetById(id);
+            _teamService.Delete(value);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult EditTeam(int id)
+        {
+            var value = _teamService.GetById(id);
+            return View(value);
+           
+        }
+        [HttpPost]
+        public IActionResult EditTeam(Team team)
+        {
+            TeamValidator validationRules = new TeamValidator();
+            ValidationResult result = validationRules.Validate(team);
+            if (result.IsValid)
+            {
+                _teamService.Update(team);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
+
+        }
     }
 }
