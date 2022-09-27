@@ -9,7 +9,7 @@ namespace EntityLayer.Concrete
    public  class Team
     {
         public int TeamID { get; set; }
-        public int PersonName { get; set; }
+        public string PersonName { get; set; }
         public string Title { get; set; }
         public string ImageUrl { get; set; }
         public string FacebookUrl { get; set; }
